@@ -24,6 +24,7 @@ def connect_to_database():
 def close_database_connection(session):
     try:
         session.close()
+        print('Session closed successfully!')
     except Exception as e:
         print(f'Error al cerrar la conexión con la base de datos: {e}')
 

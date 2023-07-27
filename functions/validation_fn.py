@@ -35,7 +35,8 @@ def eliminar_caracteres_no_numericos(df, columna):
 # Función para eliminar caracteres no numéricos en una columna especificada
 def reemplazar_nulos_por_predeterminados(df, columnas, valores_predeterminados):
     for columna, valor_predeterminado in zip(columnas, valores_predeterminados):
-        df[columna].fillna(valor_predeterminado, inplace=True)
+        if columna in df.columns:
+            df[columna].fillna(valor_predeterminado, inplace=True)
     return df
 
 
@@ -52,3 +53,23 @@ def reemplazar_campos_si_son_iguales(df, replace_value):
             df.at[index, 'telefonos'] = replace_value
 
     return df
+
+
+def completar_ceros_contrato(contrato):
+    if len(contrato) >= 8:
+        return contrato
+    else:
+        ceros_faltantes = 8 - len(contrato)
+        return "0" * ceros_faltantes + contrato
+
+# Ejemplo de uso con DataFrame de pandas:
+# data = {'contrato': ['12345', '12345678', '9876', '654321']}
+# df = pd.DataFrame(data)
+
+# Aplicar la función a la columna 'contrato' del DataFrame
+# df['contrato_completo'] = df['contrato'].apply(completar_ceros_contrato)
+
+# Ejemplos de uso:
+# print(completar_ceros_contrato("12345"))  # Salida: "000012345"
+# print(completar_ceros_contrato("12345678"))  # Salida: "12345678"
+

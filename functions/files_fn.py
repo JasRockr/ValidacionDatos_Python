@@ -1,7 +1,8 @@
 # Importar librerías
 import os
-import pandas as pd
 import sys
+import pandas as pd
+import openpyxl as xl
 
 # Función para verificar si un archivo está abierto
 def archivo_esta_abierto(ruta_archivo):
@@ -12,11 +13,22 @@ def archivo_esta_abierto(ruta_archivo):
         return False
 
 # Función para cargar el DataFrame desde un archivo Excel
-def cargar_datos_desde_excel(ruta_archivo):
+def cargar_datos_desde_excel(ruta_archivo, hoja_nombre=None):
     try:
         if os.path.exists(ruta_archivo):
-            dataRaw = pd.read_excel(ruta_archivo)
+            # Verificar si la hoja_nombre está especificada
+            if hoja_nombre:
+                # Cargar solo la hoja de interés
+                wb = xl.load_workbook(ruta_archivo)
+                if hoja_nombre not in wb.sheetnames:
+                    raise ValueError(f"La hoja '{hoja_nombre}' no existe en el archivo.")
+                dataRaw = pd.read_excel(ruta_archivo, sheet_name=hoja_nombre)
+            else:
+                # Cargar la primera hoja por defecto
+                dataRaw = pd.read_excel(ruta_archivo)
+            
             df = pd.DataFrame(dataRaw)
+            print(df)
             return df
         else:
             print(f"El archivo '{ruta_archivo}' no fue encontrado.")
