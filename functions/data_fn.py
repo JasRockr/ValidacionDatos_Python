@@ -4,8 +4,8 @@ from functions.validation_fn import (
     es_correo_valido,
     es_celular_valido,
     eliminar_caracteres_no_numericos,
-    reemplazar_nulos_por_predeterminados,
     reemplazar_campos_si_son_iguales,
+    reemplazar_nulos_por_predeterminados,
     completar_ceros_contrato
 )
 
@@ -15,10 +15,11 @@ from database.connect_db import (
     close_database_connection
 )
 
+column1 = 'email'
 
 def transformar_datos(df):
     df = df.drop_duplicates()
-    columnas = ['email', 'celular', 'telefonos']
+    columnas = [column1, 'celular', 'telefonos']
     valores_predeterminados = [
         'noregistrado@losolivos.co', '3100000000', '7000000']
     df = reemplazar_nulos_por_predeterminados(
@@ -29,7 +30,7 @@ def transformar_datos(df):
     df['contrato'] = df['contrato'].astype(str)
     df['email'] = df['email'].astype(str)
     df['email'] = df['email'].apply(lambda x: x.lower())
-    df['correo_valido'] = df['email'].apply(es_correo_valido)
+    df['correo_valido'] = df[column1].apply(es_correo_valido)
     eliminar_caracteres_no_numericos(df, 'celular')
     df['celular_valido'] = df['celular'].apply(es_celular_valido)
     df = reemplazar_campos_si_son_iguales(

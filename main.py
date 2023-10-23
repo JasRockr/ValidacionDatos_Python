@@ -53,7 +53,12 @@ def main(ruta_archivo, hoja):
         carpeta_descargas = os.path.join(os.path.expanduser('~'), 'Downloads')
         nombre_archivo = 'validacionDatosTerceros.xlsx'
         ruta_completa = os.path.join(carpeta_descargas, nombre_archivo)
-        exportar_a_excel(df, ruta_completa)
+        # exportar_a_excel(df, ruta_completa)
+        try:
+            resultado = exportar_a_excel(df, ruta_completa)
+            print(resultado)
+        except Exception as e:
+            print(f"Error al exportar a Excel: {e}")
 
     except Exception as e:
         click.echo(f"Ocurrió un error: {e}")

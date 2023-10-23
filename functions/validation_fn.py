@@ -49,7 +49,7 @@ def reemplazar_campos_si_son_iguales(df, replace_value):
         # Verificar si el valor de 'telefonos' es igual al valor de 'celular'
         if telefonos == celular:
             # Reemplazar el valor de 'telefonos' con el valor de 'celular'
-            # O puedes asignar cualquier otro valor que desees
+            # O puedes asignar cualquier otro valor deseado
             df.at[index, 'telefonos'] = replace_value
 
     return df
