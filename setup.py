@@ -1,9 +1,10 @@
+# Setup module
 from setuptools import setup, find_packages
 
-# Lista de nombres de paquetes
+# Packages list from project
 packages = ['database', 'functions', 'schemas']
 
-# Lista de configuraciones de paquetes
+# List of packages configuration
 configurations = []
 for package in packages:
     configurations.append(
@@ -13,6 +14,6 @@ for package in packages:
         )
     )
 
-# Si tienes configuraciones adicionales para el proyecto en general, también puedes agregarlas aquí
+# Additional configurations
 
-# Puedes agregar más configuraciones o dejar el archivo así si no necesitas más opciones especiales.
+# Add new configurations

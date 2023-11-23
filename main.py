@@ -1,4 +1,5 @@
 import os
+import sys
 import gc
 import click
 
@@ -20,43 +21,47 @@ from functions.data_fn import (
 def main(ruta_archivo, hoja):
     """
     Este programa carga un DataFrame desde un archivo Excel y realiza algunas operaciones en los datos. \n
-    Ejemplo de uso: \n main.py archivo.xlsx --hoja NombreDeLaHoja
+    Ejemplo de uso: \n 
+        $ python main.py /ruta/completa/archivo.xlsx --hoja NombreDeLaHoja \n
     """
 
     try:
         # Limpia la memoria manualmente
-        gc.collect()
+        # gc.collect()
 
         # Configurar Archivo de Origen de Datos
         src_file = ruta_archivo
         sheet_name = hoja
 
-        # Cargar Datos desde Excel
+        # 1. Cargar Datos desde Excel
         if sheet_name:
             df = cargar_datos_desde_excel(src_file, hoja_nombre=sheet_name)
         else:
             df = cargar_datos_desde_excel(src_file)
 
-        # Transformación de Datos
+        # 2. Transformación de Datos
         df = transformar_datos(df)
 
-        # Obtener Datos desde la Base de Datos
+
+        # 3. Obtener Datos desde la Base de Datos
         tercero_dict = obtener_datos_desde_db(df)
 
-        # Comparar Datos y Agregar Resultados
+        # print(df)
+        # 4. Comparar Datos y Agregar Resultados
         df = comparar_datos(df, tercero_dict)
 
         pass
-        # df = reordenar_df(df)
+        df = reordenar_df(df)
 
-        # Exportar el DataFrame a un archivo Excel
+        # 5. Exportar el DataFrame a un archivo Excel
         carpeta_descargas = os.path.join(os.path.expanduser('~'), 'Downloads')
         nombre_archivo = 'validacionDatosTerceros.xlsx'
         ruta_completa = os.path.join(carpeta_descargas, nombre_archivo)
-        # exportar_a_excel(df, ruta_completa)
+        exportar_a_excel(df, ruta_completa)
         try:
             resultado = exportar_a_excel(df, ruta_completa)
             print(resultado)
+            # pass
         except Exception as e:
             print(f"Error al exportar a Excel: {e}")
 

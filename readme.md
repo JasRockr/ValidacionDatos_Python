@@ -20,6 +20,10 @@ Se valida estructura y longitudes, se realiza una consulta a la base de datos de
   - schemas/
     - __init__.py
     - terceros_sch.py
+  - testing/
+    - __init__.py
+    - test_functions_files_fn.py
+  - __init__.py
   - .env
   - .gitignore
   - main.py
@@ -35,6 +39,16 @@ Se valida estructura y longitudes, se realiza una consulta a la base de datos de
 - Definir el nombre del archivo de origen en la variable `srcFile` en el archivo `main.py` ubicado en la carpeta root
 - Por defecto el nombre del archivo de origen configurado es `3880.xlsx` este valor está 'quemado' en la variable mencionada
 - En la carpeta root del proyecto ejecutar el comando `python main.py`
+
+-- Ejecutar
+  - python main.py /ruta/completa/archivo.xlsx --hoja NombreDeLaHoja
+  - python main.py C:\Users\User\Desktop\archivo.xlsx --hoja 'Nombre Hoja'
+
+-- Pruebas
+  -  python -m unittest testing.test_functions_files_fn
+
+-- Actualizar Lista de Requisitos
+  - pipreqs . --force
 
 ### Configuraciones
 
